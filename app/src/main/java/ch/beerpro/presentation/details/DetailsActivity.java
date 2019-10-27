@@ -4,8 +4,10 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
+import ch.beerpro.presentation.details.createrating.CreateNoteActivity;
 import ch.beerpro.presentation.details.createrating.CreateRatingActivity;
 
 import static ch.beerpro.presentation.utils.DrawableHelpers.setDrawableTint;
@@ -125,8 +128,20 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         View view = getLayoutInflater().inflate(R.layout.single_bottom_sheet_dialog, null);
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
+
+        Button btnAddPrivateNote = (Button) dialog.findViewById(R.id.addPrivateNote);
+        btnAddPrivateNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailsActivity.this, CreateNoteActivity.class);
+                intent.putExtra(CreateNoteActivity.ITEM, model.getBeer().getValue());
+                startActivity(intent);
+            }
+        });
+
         dialog.show();
     }
+
 
     private void updateBeer(Beer item) {
         name.setText(item.getName());

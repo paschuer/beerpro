@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ch.beerpro">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -14,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".presentation.details.createrating.CreateNoteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_create_note"
+            android:theme="@style/FullscreenTheme"></activity>
         <activity
             android:name=".presentation.splash.SplashScreenActivity"
             android:theme="@style/LoginScreenTheme">
@@ -77,5 +80,7 @@
                 android:value=".presentation.MainActivity" />
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

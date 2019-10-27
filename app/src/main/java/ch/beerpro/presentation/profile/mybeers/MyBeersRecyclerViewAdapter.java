@@ -26,6 +26,7 @@ import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.MyBeerFromRating;
 import ch.beerpro.domain.models.MyBeerFromWishlist;
+import ch.beerpro.domain.models.MyBeerFromNote;
 import ch.beerpro.presentation.utils.DrawableHelpers;
 
 
@@ -126,7 +127,13 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
                 DrawableHelpers
                         .setDrawableTint(removeFromWishlist, itemView.getResources().getColor(R.color.colorPrimary));
                 onTheListSince.setText("auf der Wunschliste seit");
-            } else if (entry instanceof MyBeerFromRating) {
+            }else if (entry instanceof MyBeerFromNote) {
+                DrawableHelpers.setDrawableTint(removeFromWishlist,
+                        itemView.getResources().getColor(android.R.color.darker_gray));
+                removeFromWishlist.setText("Wunschliste");
+                onTheListSince.setText("Notiz hinzugefügt am");
+            }
+            else if (entry instanceof MyBeerFromRating) {
                 DrawableHelpers.setDrawableTint(removeFromWishlist,
                         itemView.getResources().getColor(android.R.color.darker_gray));
                 removeFromWishlist.setText("Wunschliste");

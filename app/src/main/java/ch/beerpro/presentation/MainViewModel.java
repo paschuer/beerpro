@@ -15,10 +15,12 @@ import ch.beerpro.data.repositories.CurrentUser;
 import ch.beerpro.data.repositories.LikesRepository;
 import ch.beerpro.data.repositories.MyBeersRepository;
 import ch.beerpro.data.repositories.RatingsRepository;
+import ch.beerpro.data.repositories.NotesRepository;
 import ch.beerpro.data.repositories.WishlistRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.Rating;
+import ch.beerpro.domain.models.Note;
 import ch.beerpro.domain.models.Wish;
 
 /**
@@ -31,10 +33,12 @@ public class MainViewModel extends ViewModel implements CurrentUser {
     private final BeersRepository beersRepository;
     private final LikesRepository likesRepository;
     private final RatingsRepository ratingsRepository;
+    private final NotesRepository notesRepository;
     private final WishlistRepository wishlistRepository;
 
     private final LiveData<List<Wish>> myWishlist;
     private final LiveData<List<Rating>> myRatings;
+    private final LiveData<List<Note>> myNotes;
     private final LiveData<List<MyBeer>> myBeers;
 
     public MainViewModel() {
@@ -45,6 +49,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         likesRepository = new LikesRepository();
         wishlistRepository = new WishlistRepository();
         ratingsRepository = new RatingsRepository();
+        notesRepository = new NotesRepository();
         MyBeersRepository myBeersRepository = new MyBeersRepository();
 
         LiveData<List<Beer>> allBeers = beersRepository.getAllBeers();
@@ -52,7 +57,8 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         MutableLiveData<String> currentUserId = new MutableLiveData<>();
         myWishlist = wishlistRepository.getMyWishlist(currentUserId);
         myRatings = ratingsRepository.getMyRatings(currentUserId);
-        myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings);
+        myNotes = notesRepository.getMyNotes(currentUserId);
+        myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings, myNotes);
 
         /*
          * Set the current user id, which is used as input for the getMyWishlist and getMyRatings calls above.
@@ -71,6 +77,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
     public LiveData<List<Rating>> getMyRatings() {
         return myRatings;
     }
+
 
     public LiveData<List<Wish>> getMyWishlist() {
         return myWishlist;

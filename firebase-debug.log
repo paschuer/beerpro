@@ -1,0 +1,382 @@
+[debug] [2019-10-09T09:18:38.824Z] ----------------------------------------------------------------------
+[debug] [2019-10-09T09:18:38.826Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Pascal Schuermann\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-10-09T09:18:38.826Z] CLI Version:   7.5.0
+[debug] [2019-10-09T09:18:38.826Z] Platform:      win32
+[debug] [2019-10-09T09:18:38.826Z] Node Version:  v12.11.0
+[debug] [2019-10-09T09:18:38.828Z] Time:          Wed Oct 09 2019 11:18:38 GMT+0200 (GMT+02:00)
+[debug] [2019-10-09T09:18:38.828Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-09T09:18:38.835Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-09T09:18:38.835Z] > authorizing via signed-in user
+[debug] [2019-10-09T09:18:38.835Z] [iam] checking project beerpro-testat for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-10-09T09:18:38.837Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/beerpro-testat:testIamPermissions  
+
+[debug] [2019-10-09T09:18:39.670Z] <<< HTTP RESPONSE 200
+[warn] !  functions: package.json indicates an outdated version of firebase-functions.
+ Please upgrade using npm install --save firebase-functions@latest in your functions directory.
+[info] 
+[info] === Deploying to 'beerpro-testat'...
+[info] 
+[info] i  deploying functions
+[debug] [2019-10-09T09:18:41.952Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-plugin-promise": "^4.0.1"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-10-09T09:18:41.954Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/beerpro-testat/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-10-09T09:18:41.954Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/beerpro-testat/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-10-09T09:18:42.819Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-09T09:18:42.847Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2019-10-09T09:18:42.849Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/beerpro-testat/adminSdkConfig  
+ 
+[debug] [2019-10-09T09:18:43.035Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-10-09T09:18:43.038Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/beerpro-testat/configs  
+ 
+[debug] [2019-10-09T09:18:43.257Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (54.4 KB) for uploading
+[debug] [2019-10-09T09:18:43.528Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-10-09T09:19:17.895Z] <<< HTTP RESPONSE 500
+[debug] [2019-10-09T09:19:17.895Z] <<< HTTP RESPONSE BODY {
+  "error": {
+    "code": 500,
+    "message": "The service has encountered an internal error. Please try again later",
+    "status": "INTERNAL"
+  }
+}
+
+[info] 
+
+There was an issue deploying your functions. Verify that your project has a Google App Engine instance setup at https://console.cloud.google.com/appengine and try again. If this issue persists, please contact support.
+[warn] !  functions: Upload Error: HTTP Error: 500, The service has encountered an internal error. Please try again later
+[error] 
+[error] Error: HTTP Error: 500, The service has encountered an internal error. Please try again later
+[debug] [2019-10-09T09:19:17.900Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 500,
+      "message": "The service has encountered an internal error. Please try again later",
+      "status": "INTERNAL"
+    }
+  },
+  "response": {
+    "statusCode": 500,
+    "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"The service has encountered an internal error. Please try again later\",\n    \"status\": \"INTERNAL\"\n  }\n}\n",
+    "headers": {
+      "vary": "X-Origin, Referer, Origin,Accept-Encoding",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Wed, 09 Oct 2019 09:19:16 GMT",
+      "server": "ESF",
+      "cache-control": "private",
+      "x-xss-protection": "0",
+      "x-frame-options": "SAMEORIGIN",
+      "x-content-type-options": "nosniff",
+      "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000",
+      "accept-ranges": "none",
+      "transfer-encoding": "chunked"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "cloudfunctions.googleapis.com",
+        "port": 443,
+        "hostname": "cloudfunctions.googleapis.com",
+        "hash": null,
+        "search": null,
+        "query": null,
+        "pathname": "/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl",
+        "path": "/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl",
+        "href": "https://cloudfunctions.googleapis.com/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl"
+      },
+      "method": "POST"
+    }
+  }
+}
+[debug] [2019-10-09T09:19:23.899Z] ----------------------------------------------------------------------
+[debug] [2019-10-09T09:19:23.902Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Pascal Schuermann\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-10-09T09:19:23.902Z] CLI Version:   7.5.0
+[debug] [2019-10-09T09:19:23.902Z] Platform:      win32
+[debug] [2019-10-09T09:19:23.902Z] Node Version:  v12.11.0
+[debug] [2019-10-09T09:19:23.904Z] Time:          Wed Oct 09 2019 11:19:23 GMT+0200 (GMT+02:00)
+[debug] [2019-10-09T09:19:23.904Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-09T09:19:23.912Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-09T09:19:23.912Z] > authorizing via signed-in user
+[debug] [2019-10-09T09:19:23.912Z] [iam] checking project beerpro-testat for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-10-09T09:19:23.914Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/beerpro-testat:testIamPermissions  
+
+[debug] [2019-10-09T09:19:24.761Z] <<< HTTP RESPONSE 200
+[warn] !  functions: package.json indicates an outdated version of firebase-functions.
+ Please upgrade using npm install --save firebase-functions@latest in your functions directory.
+[info] 
+[info] === Deploying to 'beerpro-testat'...
+[info] 
+[info] i  deploying functions
+[debug] [2019-10-09T09:19:26.897Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-plugin-promise": "^4.0.1"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-10-09T09:19:26.899Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/beerpro-testat/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-10-09T09:19:26.900Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/beerpro-testat/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-10-09T09:19:27.785Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2019-10-09T09:19:27.811Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-09T09:19:27.812Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/beerpro-testat/adminSdkConfig  
+ 
+[debug] [2019-10-09T09:19:28.055Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-10-09T09:19:28.058Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/beerpro-testat/configs  
+ 
+[debug] [2019-10-09T09:19:28.283Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (54.4 KB) for uploading
+[debug] [2019-10-09T09:19:28.536Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-10-09T09:21:28.647Z] <<< HTTP RESPONSE 503
+[debug] [2019-10-09T09:21:28.648Z] <<< HTTP RESPONSE BODY {
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[debug] [2019-10-09T09:21:29.653Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-10-09T09:23:29.717Z] <<< HTTP RESPONSE 503
+[debug] [2019-10-09T09:23:29.717Z] <<< HTTP RESPONSE BODY {
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[info] 
+
+There was an issue deploying your functions. Verify that your project has a Google App Engine instance setup at https://console.cloud.google.com/appengine and try again. If this issue persists, please contact support.
+[warn] !  functions: Upload Error: HTTP Error: 503, The service is currently unavailable.
+[error] 
+[error] Error: HTTP Error: 503, The service is currently unavailable.
+[debug] [2019-10-09T09:35:24.144Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 503,
+      "message": "The service is currently unavailable.",
+      "status": "UNAVAILABLE"
+    }
+  },
+  "response": {
+    "statusCode": 503,
+    "body": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"The service is currently unavailable.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+    "headers": {
+      "vary": "X-Origin, Referer, Origin,Accept-Encoding",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Wed, 09 Oct 2019 09:23:28 GMT",
+      "server": "ESF",
+      "cache-control": "private",
+      "x-xss-protection": "0",
+      "x-frame-options": "SAMEORIGIN",
+      "x-content-type-options": "nosniff",
+      "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000",
+      "accept-ranges": "none",
+      "transfer-encoding": "chunked"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "cloudfunctions.googleapis.com",
+        "port": 443,
+        "hostname": "cloudfunctions.googleapis.com",
+        "hash": null,
+        "search": null,
+        "query": null,
+        "pathname": "/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl",
+        "path": "/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl",
+        "href": "https://cloudfunctions.googleapis.com/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl"
+      },
+      "method": "POST"
+    }
+  }
+}
+[debug] [2019-10-09T09:35:36.889Z] ----------------------------------------------------------------------
+[debug] [2019-10-09T09:35:36.892Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Pascal Schuermann\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-10-09T09:35:36.892Z] CLI Version:   7.5.0
+[debug] [2019-10-09T09:35:36.892Z] Platform:      win32
+[debug] [2019-10-09T09:35:36.892Z] Node Version:  v12.11.0
+[debug] [2019-10-09T09:35:36.893Z] Time:          Wed Oct 09 2019 11:35:36 GMT+0200 (GMT+02:00)
+[debug] [2019-10-09T09:35:36.893Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-09T09:35:36.900Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-09T09:35:36.900Z] > authorizing via signed-in user
+[debug] [2019-10-09T09:35:36.900Z] [iam] checking project beerpro-testat for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-10-09T09:35:36.902Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/beerpro-testat:testIamPermissions  
+
+[debug] [2019-10-09T09:35:37.733Z] <<< HTTP RESPONSE 200
+[warn] !  functions: package.json indicates an outdated version of firebase-functions.
+ Please upgrade using npm install --save firebase-functions@latest in your functions directory.
+[info] 
+[info] === Deploying to 'beerpro-testat'...
+[info] 
+[info] i  deploying functions
+[debug] [2019-10-09T09:35:39.843Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-plugin-promise": "^4.0.1"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-10-09T09:35:39.844Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/beerpro-testat/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-10-09T09:35:39.845Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/beerpro-testat/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-10-09T09:35:40.722Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2019-10-09T09:35:40.725Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-09T09:35:40.725Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/beerpro-testat/adminSdkConfig  
+ 
+[debug] [2019-10-09T09:35:40.925Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-10-09T09:35:40.928Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/beerpro-testat/configs  
+ 
+[debug] [2019-10-09T09:35:41.142Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (54.4 KB) for uploading
+[debug] [2019-10-09T09:35:41.399Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-10-09T09:37:41.473Z] <<< HTTP RESPONSE 503
+[debug] [2019-10-09T09:37:41.474Z] <<< HTTP RESPONSE BODY {
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[debug] [2019-10-09T09:37:42.485Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-10-09T09:39:42.547Z] <<< HTTP RESPONSE 503
+[debug] [2019-10-09T09:39:42.547Z] <<< HTTP RESPONSE BODY {
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[info] 
+
+There was an issue deploying your functions. Verify that your project has a Google App Engine instance setup at https://console.cloud.google.com/appengine and try again. If this issue persists, please contact support.
+[warn] !  functions: Upload Error: HTTP Error: 503, The service is currently unavailable.
+[error] 
+[error] Error: HTTP Error: 503, The service is currently unavailable.
+[debug] [2019-10-09T09:39:42.553Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 503,
+      "message": "The service is currently unavailable.",
+      "status": "UNAVAILABLE"
+    }
+  },
+  "response": {
+    "statusCode": 503,
+    "body": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"The service is currently unavailable.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+    "headers": {
+      "vary": "X-Origin, Referer, Origin,Accept-Encoding",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Wed, 09 Oct 2019 09:39:41 GMT",
+      "server": "ESF",
+      "cache-control": "private",
+      "x-xss-protection": "0",
+      "x-frame-options": "SAMEORIGIN",
+      "x-content-type-options": "nosniff",
+      "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000",
+      "accept-ranges": "none",
+      "transfer-encoding": "chunked"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "cloudfunctions.googleapis.com",
+        "port": 443,
+        "hostname": "cloudfunctions.googleapis.com",
+        "hash": null,
+        "search": null,
+        "query": null,
+        "pathname": "/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl",
+        "path": "/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl",
+        "href": "https://cloudfunctions.googleapis.com/v1/projects/beerpro-testat/locations/us-central1/functions:generateUploadUrl"
+      },
+      "method": "POST"
+    }
+  }
+}

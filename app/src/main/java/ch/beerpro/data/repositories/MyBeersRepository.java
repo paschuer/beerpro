@@ -1,5 +1,7 @@
 package ch.beerpro.data.repositories;
 
+import android.util.Pair;
+
 import androidx.lifecycle.LiveData;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -15,17 +17,20 @@ import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Entity;
 import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.MyBeerFromRating;
+import ch.beerpro.domain.models.MyBeerFromNote;
 import ch.beerpro.domain.models.MyBeerFromWishlist;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
+import ch.beerpro.domain.models.Note;
 
 import static androidx.lifecycle.Transformations.map;
 import static ch.beerpro.domain.utils.LiveDataExtensions.combineLatest;
 
 public class MyBeersRepository {
 
-    private static List<MyBeer> getMyBeers(Triple<List<Wish>, List<Rating>, HashMap<String, Beer>> input) {
-        List<Wish> wishlist = input.getLeft();
+    private static List<MyBeer> getMyBeers(Triple<Pair<List<Wish>,List<Note>>, List<Rating>, HashMap<String, Beer>> input) {
+        List<Wish> wishlist = input.getLeft().first;
+        List<Note> notes =  input.getLeft().second;
         List<Rating> ratings = input.getMiddle();
         HashMap<String, Beer> beers = input.getRight();
 
@@ -47,14 +52,24 @@ public class MyBeersRepository {
                 beersAlreadyOnTheList.add(beerId);
             }
         }
+
+        for (Note note : notes) {
+            String beerId = note.getBeerId();
+            if (beersAlreadyOnTheList.contains(beerId)) {
+                // if the beer is already on the list, don't add it again
+            } else {
+                result.add(new MyBeerFromNote(note, beers.get(beerId)));
+            }
+        }
         Collections.sort(result, (r1, r2) -> r2.getDate().compareTo(r1.getDate()));
         return result;
     }
 
 
     public LiveData<List<MyBeer>> getMyBeers(LiveData<List<Beer>> allBeers, LiveData<List<Wish>> myWishlist,
-                                             LiveData<List<Rating>> myRatings) {
-        return map(combineLatest(myWishlist, myRatings, map(allBeers, Entity::entitiesById)),
+                                             LiveData<List<Rating>> myRatings, LiveData<List<Note>>myNotes) {
+
+        return map(combineLatest(combineLatest(myWishlist,myNotes), myRatings, map(allBeers, Entity::entitiesById)),
                 MyBeersRepository::getMyBeers);
     }
 
