@@ -17,11 +17,13 @@ import ch.beerpro.data.repositories.MyBeersRepository;
 import ch.beerpro.data.repositories.RatingsRepository;
 import ch.beerpro.data.repositories.NotesRepository;
 import ch.beerpro.data.repositories.WishlistRepository;
+import ch.beerpro.data.repositories.FridgeRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Note;
 import ch.beerpro.domain.models.Wish;
+import ch.beerpro.domain.models.Fridge;
 
 /**
  * This is the viewmodel for the {@link MainActivity}, which is also used by the three pages/fragments contained in it.
@@ -35,8 +37,10 @@ public class MainViewModel extends ViewModel implements CurrentUser {
     private final RatingsRepository ratingsRepository;
     private final NotesRepository notesRepository;
     private final WishlistRepository wishlistRepository;
+    private final FridgeRepository fridgeRepository;
 
     private final LiveData<List<Wish>> myWishlist;
+    private final LiveData<List<Fridge>> myFridge;
     private final LiveData<List<Rating>> myRatings;
     private final LiveData<List<Note>> myNotes;
     private final LiveData<List<MyBeer>> myBeers;
@@ -48,6 +52,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         beersRepository = new BeersRepository();
         likesRepository = new LikesRepository();
         wishlistRepository = new WishlistRepository();
+        fridgeRepository = new FridgeRepository();
         ratingsRepository = new RatingsRepository();
         notesRepository = new NotesRepository();
         MyBeersRepository myBeersRepository = new MyBeersRepository();
@@ -56,6 +61,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
 
         MutableLiveData<String> currentUserId = new MutableLiveData<>();
         myWishlist = wishlistRepository.getMyWishlist(currentUserId);
+        myFridge = fridgeRepository.getMyFridge(currentUserId);
         myRatings = ratingsRepository.getMyRatings(currentUserId);
         myNotes = notesRepository.getMyNotes(currentUserId);
         myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings, myNotes);
@@ -81,6 +87,10 @@ public class MainViewModel extends ViewModel implements CurrentUser {
 
     public LiveData<List<Wish>> getMyWishlist() {
         return myWishlist;
+    }
+
+    public LiveData<List<Fridge>> getMyFridge() {
+        return myFridge;
     }
 
     public LiveData<List<String>> getBeerCategories() {

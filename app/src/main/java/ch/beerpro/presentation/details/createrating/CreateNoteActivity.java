@@ -68,12 +68,6 @@ public class CreateNoteActivity extends AppCompatActivity {
         Beer item = (Beer) getIntent().getExtras().getSerializable(ITEM);
         model = ViewModelProviders.of(this).get(CreateNoteViewModel.class);
         model.setItem(item);
-        //noteText.setText(model.getNotes().getValue().get(0).getNote());
-       /* Transformations.map(model.getNotes(), notes -> {
-            noteText.setText(notes.get(0).getNote());
-            return notes.get(0);
-        });*/
-
 
         model.getNotes().observe(this, notes -> {
             noteText.setText(notes.get(0).getNote());

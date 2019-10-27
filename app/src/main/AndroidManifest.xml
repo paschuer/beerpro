@@ -12,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".presentation.profile.myfridge.MyFridgeActivity"></activity>
         <activity
             android:name=".presentation.details.createrating.CreateNoteActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_create_note"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".presentation.splash.SplashScreenActivity"
             android:theme="@style/LoginScreenTheme">

@@ -26,10 +26,12 @@ import ch.beerpro.R;
 import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
+import ch.beerpro.domain.models.Fridge;
 import ch.beerpro.presentation.MainViewModel;
 import ch.beerpro.presentation.profile.mybeers.MyBeersActivity;
 import ch.beerpro.presentation.profile.myratings.MyRatingsActivity;
 import ch.beerpro.presentation.profile.mywishlist.WishlistActivity;
+import ch.beerpro.presentation.profile.myfridge.MyFridgeActivity;
 
 /**
  * Because the profile view is not a whole activity but rendered as part of the MainActivity in a tab, we use a so-called fragment.
@@ -71,6 +73,7 @@ public class ProfileFragment extends Fragment {
 
         model = ViewModelProviders.of(this).get(MainViewModel.class);
         model.getMyWishlist().observe(this, this::updateWishlistCount);
+        model.getMyFridge().observe(this, this::updateFridgeCount);
         model.getMyRatings().observe(this, this::updateRatingsCount);
         model.getMyBeers().observe(this, this::updateMyBeersCount);
 
@@ -103,6 +106,12 @@ public class ProfileFragment extends Fragment {
         startActivity(intent);
     }
 
+    @OnClick(R.id.myFridge)
+    public void handleMyFridgeClick(View view) {
+        Intent intent = new Intent(getActivity(), MyFridgeActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.myBeers)
     public void handleMyBeersClick(View view) {
         Intent intent = new Intent(getActivity(), MyBeersActivity.class);
@@ -115,6 +124,10 @@ public class ProfileFragment extends Fragment {
 
     private void updateWishlistCount(List<Wish> wishes) {
         myWishlistCount.setText(String.valueOf(wishes.size()));
+    }
+
+    private void updateFridgeCount(List<Fridge> fridge) {
+        myFridgeCount.setText(String.valueOf(fridge.size()));
     }
 
 }

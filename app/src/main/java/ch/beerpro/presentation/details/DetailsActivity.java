@@ -33,6 +33,7 @@ import butterknife.OnClick;
 import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
+import ch.beerpro.domain.models.Fridge;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.details.createrating.CreateNoteActivity;
@@ -84,6 +85,8 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
     private DetailsViewModel model;
 
+    private boolean FridgeFlag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +113,11 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         model.getBeer().observe(this, this::updateBeer);
         model.getRatings().observe(this, this::updateRatings);
         model.getWish().observe(this, this::toggleWishlistView);
+
+        FridgeFlag = false;
+        model.getFridge().observe(this, fridge->{
+            FridgeFlag = !fridge.equals(null);
+        });
 
         recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
@@ -138,7 +146,25 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 startActivity(intent);
             }
         });
+        Button btnAddToFridge = (Button) dialog.findViewById(R.id.addToFridge);
 
+        if(FridgeFlag){
+            btnAddToFridge.setText("raus aus Kühlschrank");
+        }
+
+        btnAddToFridge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                model.toggleItemInFridgelist(model.getBeer().getValue().getId());
+
+                if(btnAddToFridge.getText().equals("In den Kühlschrank")){
+                    btnAddToFridge.setText("raus aus Kühlschrank");
+                }
+                else{
+                    btnAddToFridge.setText("In den Kühlschrank");
+                }
+            }
+        });
         dialog.show();
     }
 
