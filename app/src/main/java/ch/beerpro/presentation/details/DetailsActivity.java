@@ -37,6 +37,7 @@ import ch.beerpro.domain.models.Fridge;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.details.createrating.CreateNoteActivity;
+import ch.beerpro.presentation.details.createrating.CreatePriceActivity;
 import ch.beerpro.presentation.details.createrating.CreateRatingActivity;
 
 import static ch.beerpro.presentation.utils.DrawableHelpers.setDrawableTint;
@@ -146,6 +147,17 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 startActivity(intent);
             }
         });
+
+        Button btnAddPrice = (Button) dialog.findViewById(R.id.addPrice);
+        btnAddPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailsActivity.this, CreatePriceActivity.class);
+                intent.putExtra(CreatePriceActivity.ITEM, model.getBeer().getValue());
+                startActivity(intent);
+            }
+        });
+
         Button btnAddToFridge = (Button) dialog.findViewById(R.id.addToFridge);
 
         if(FridgeFlag){

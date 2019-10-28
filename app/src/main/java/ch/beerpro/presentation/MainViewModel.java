@@ -16,12 +16,14 @@ import ch.beerpro.data.repositories.LikesRepository;
 import ch.beerpro.data.repositories.MyBeersRepository;
 import ch.beerpro.data.repositories.RatingsRepository;
 import ch.beerpro.data.repositories.NotesRepository;
+import ch.beerpro.data.repositories.PriceRepository;
 import ch.beerpro.data.repositories.WishlistRepository;
 import ch.beerpro.data.repositories.FridgeRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Note;
+import ch.beerpro.domain.models.Price;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.domain.models.Fridge;
 
@@ -36,6 +38,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
     private final LikesRepository likesRepository;
     private final RatingsRepository ratingsRepository;
     private final NotesRepository notesRepository;
+    private final PriceRepository priceRepository;
     private final WishlistRepository wishlistRepository;
     private final FridgeRepository fridgeRepository;
 
@@ -43,6 +46,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
     private final LiveData<List<Fridge>> myFridge;
     private final LiveData<List<Rating>> myRatings;
     private final LiveData<List<Note>> myNotes;
+    private final LiveData<List<Price>> myPrice;
     private final LiveData<List<MyBeer>> myBeers;
 
     public MainViewModel() {
@@ -55,6 +59,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         fridgeRepository = new FridgeRepository();
         ratingsRepository = new RatingsRepository();
         notesRepository = new NotesRepository();
+        priceRepository = new PriceRepository();
         MyBeersRepository myBeersRepository = new MyBeersRepository();
 
         LiveData<List<Beer>> allBeers = beersRepository.getAllBeers();
@@ -64,7 +69,8 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         myFridge = fridgeRepository.getMyFridge(currentUserId);
         myRatings = ratingsRepository.getMyRatings(currentUserId);
         myNotes = notesRepository.getMyNotes(currentUserId);
-        myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings, myNotes);
+        myPrice = priceRepository.getMyPrices(currentUserId);
+        myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings, myNotes, myPrice);
 
         /*
          * Set the current user id, which is used as input for the getMyWishlist and getMyRatings calls above.

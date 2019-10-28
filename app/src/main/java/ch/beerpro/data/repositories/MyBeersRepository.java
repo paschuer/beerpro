@@ -16,9 +16,11 @@ import java.util.Set;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Entity;
 import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromPrice;
 import ch.beerpro.domain.models.MyBeerFromRating;
 import ch.beerpro.domain.models.MyBeerFromNote;
 import ch.beerpro.domain.models.MyBeerFromWishlist;
+import ch.beerpro.domain.models.Price;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.domain.models.Note;
@@ -28,9 +30,10 @@ import static ch.beerpro.domain.utils.LiveDataExtensions.combineLatest;
 
 public class MyBeersRepository {
 
-    private static List<MyBeer> getMyBeers(Triple<Pair<List<Wish>,List<Note>>, List<Rating>, HashMap<String, Beer>> input) {
-        List<Wish> wishlist = input.getLeft().first;
-        List<Note> notes =  input.getLeft().second;
+    private static List<MyBeer> getMyBeers(Triple<Triple<List<Wish>,List<Note>,List<Price>>, List<Rating>, HashMap<String, Beer>> input) {
+        List<Wish> wishlist = input.getLeft().getLeft();
+        List<Note> notes =  input.getLeft().getMiddle();
+        List<Price> prices =  input.getLeft().getRight();
         List<Rating> ratings = input.getMiddle();
         HashMap<String, Beer> beers = input.getRight();
 
@@ -61,15 +64,24 @@ public class MyBeersRepository {
                 result.add(new MyBeerFromNote(note, beers.get(beerId)));
             }
         }
+
+        for (Price price : prices) {
+            String beerId = price.getBeerId();
+            if (beersAlreadyOnTheList.contains(beerId)) {
+                // if the beer is already on the list, don't add it again
+            } else {
+                result.add(new MyBeerFromPrice(price, beers.get(beerId)));
+            }
+        }
         Collections.sort(result, (r1, r2) -> r2.getDate().compareTo(r1.getDate()));
         return result;
     }
 
 
     public LiveData<List<MyBeer>> getMyBeers(LiveData<List<Beer>> allBeers, LiveData<List<Wish>> myWishlist,
-                                             LiveData<List<Rating>> myRatings, LiveData<List<Note>>myNotes) {
+                                             LiveData<List<Rating>> myRatings, LiveData<List<Note>>myNotes,LiveData<List<Price>>myPrices) {
 
-        return map(combineLatest(combineLatest(myWishlist,myNotes), myRatings, map(allBeers, Entity::entitiesById)),
+        return map(combineLatest(combineLatest(myWishlist,myNotes,myPrices), myRatings, map(allBeers, Entity::entitiesById)),
                 MyBeersRepository::getMyBeers);
     }
 

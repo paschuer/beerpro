@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation.profile.myfridge.MyFridgeActivity"></activity>
+        <activity android:name=".presentation.details.createrating.CreatePriceActivity"></activity>
+        <activity android:name=".presentation.profile.myfridge.MyFridgeActivity" />
         <activity
             android:name=".presentation.details.createrating.CreateNoteActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

@@ -24,6 +24,7 @@ import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromPrice;
 import ch.beerpro.domain.models.MyBeerFromRating;
 import ch.beerpro.domain.models.MyBeerFromWishlist;
 import ch.beerpro.domain.models.MyBeerFromNote;
@@ -132,12 +133,16 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
                         itemView.getResources().getColor(android.R.color.darker_gray));
                 removeFromWishlist.setText("Wunschliste");
                 onTheListSince.setText("Notiz hinzugefügt am");
-            }
-            else if (entry instanceof MyBeerFromRating) {
+            }else if (entry instanceof MyBeerFromPrice) {
                 DrawableHelpers.setDrawableTint(removeFromWishlist,
                         itemView.getResources().getColor(android.R.color.darker_gray));
                 removeFromWishlist.setText("Wunschliste");
-                onTheListSince.setText("beurteilt am");
+                onTheListSince.setText("Preis Notiert am");
+            }else if (entry instanceof MyBeerFromRating) {
+            DrawableHelpers.setDrawableTint(removeFromWishlist,
+                    itemView.getResources().getColor(android.R.color.darker_gray));
+            removeFromWishlist.setText("Wunschliste");
+            onTheListSince.setText("beurteilt am");
             }
         }
     }
