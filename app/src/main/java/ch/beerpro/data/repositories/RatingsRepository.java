@@ -14,6 +14,7 @@ import java.util.List;
 
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
+import ch.beerpro.domain.utils.FirestoreQueryLiveData;
 import ch.beerpro.domain.utils.FirestoreQueryLiveDataArray;
 
 import static androidx.lifecycle.Transformations.map;
@@ -31,6 +32,16 @@ public class RatingsRepository {
                 .orderBy(Rating.FIELD_CREATION_DATE, Query.Direction.DESCENDING)
                 .whereEqualTo(Rating.FIELD_USER_ID, userId), Rating.class);
     }
+
+    public static LiveData<List<Rating>> getUserRatingsForBeer(Pair<String,String> input) {
+        String  userId = input.first;
+        String beerId = input.second;
+        return new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection(Rating.COLLECTION)
+                .orderBy(Rating.FIELD_CREATION_DATE, Query.Direction.DESCENDING)
+                .whereEqualTo(Rating.FIELD_USER_ID, userId)
+                .whereEqualTo(Rating.FIELD_BEER_ID, beerId).limit(1), Rating.class);
+    }
+
 
     public static LiveData<List<Rating>> getRatingsByBeer(String beerId) {
         return new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection(Rating.COLLECTION)
@@ -64,6 +75,10 @@ public class RatingsRepository {
 
     public LiveData<List<Rating>> getRatingsForBeer(LiveData<String> beerId) {
         return switchMap(beerId, RatingsRepository::getRatingsByBeer);
+    }
+
+    public LiveData<List<Rating>> getUserRatingsForBeer(LiveData<String> userId, LiveData<String> beerId) {
+        return switchMap(combineLatest(userId,beerId), RatingsRepository::getUserRatingsForBeer);
     }
 
     public LiveData<List<Pair<Rating, Wish>>> getMyRatingsWithWishes(LiveData<String> currentUserId,

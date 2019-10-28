@@ -24,6 +24,7 @@ public class DetailsViewModel extends ViewModel implements CurrentUser {
     private final MutableLiveData<String> beerId = new MutableLiveData<>();
     private final LiveData<Beer> beer;
     private final LiveData<List<Rating>> ratings;
+    private final LiveData<List<Rating>> userRatings;
     private final LiveData<Wish> wish;
     private final LiveData<Fridge> fridge;
 
@@ -44,6 +45,7 @@ public class DetailsViewModel extends ViewModel implements CurrentUser {
         wish = wishlistRepository.getMyWishForBeer(currentUserId, getBeer());
         fridge = fridgeRepository.getMyFridgeForBeer(currentUserId, getBeer());
         ratings = ratingsRepository.getRatingsForBeer(beerId);
+        userRatings = ratingsRepository.getUserRatingsForBeer(currentUserId, beerId);
         currentUserId.setValue(getCurrentUser().getUid());
     }
 
@@ -61,6 +63,9 @@ public class DetailsViewModel extends ViewModel implements CurrentUser {
 
     public LiveData<List<Rating>> getRatings() {
         return ratings;
+    }
+    public LiveData<List<Rating>> getUserRatings() {
+        return userRatings;
     }
 
     public void setBeerId(String beerId) {

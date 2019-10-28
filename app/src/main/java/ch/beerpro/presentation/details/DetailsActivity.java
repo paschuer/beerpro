@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -61,6 +62,8 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     @BindView(R.id.numRatings)
     TextView numRatings;
 
+
+
     @BindView(R.id.ratingBar)
     RatingBar ratingBar;
 
@@ -79,6 +82,9 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     @BindView(R.id.addRatingBar)
     RatingBar addRatingBar;
 
+    @BindView(R.id.addRatingExplanation)
+    TextView addRatingExplanation;
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -87,6 +93,8 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     private DetailsViewModel model;
 
     private boolean FridgeFlag;
+
+    private boolean RatingFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +130,9 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
         recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
+
+        RatingFlag = false;
+        model.getUserRatings().observe(this, this::setUserRating);
     }
 
     private void addNewRating(RatingBar ratingBar, float v, boolean b) {
@@ -177,6 +188,22 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 }
             }
         });
+
+        if(!RatingFlag){
+            LinearLayout addRatingBar = (LinearLayout) dialog.findViewById(R.id.addRatingBar);
+            addRatingBar.setVisibility(View.GONE);
+        }
+        else{
+            Button btnAddNewRating = (Button) dialog.findViewById(R.id.addNewRating);
+            btnAddNewRating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(DetailsActivity.this, CreateRatingActivity.class);
+                    intent.putExtra(CreateRatingActivity.ITEM, model.getBeer().getValue());
+                    startActivity(intent);
+                }
+            });
+        }
         dialog.show();
     }
 
@@ -202,6 +229,15 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     @Override
     public void onRatingLikedListener(Rating rating) {
         model.toggleLike(rating);
+    }
+
+    private void setUserRating(List<Rating> item){
+        if(!item.isEmpty()) {
+            RatingFlag = true;
+            addRatingBar.setOnRatingBarChangeListener(null);
+            addRatingBar.setRating(item.get(0).getRating());
+            addRatingExplanation.setText(item.get(0).getComment());
+        }
     }
 
     @OnClick(R.id.wishlist)
@@ -237,4 +273,5 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

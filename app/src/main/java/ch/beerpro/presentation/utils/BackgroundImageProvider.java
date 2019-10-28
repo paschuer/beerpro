@@ -22,4 +22,8 @@ public class BackgroundImageProvider {
     public static Drawable getBackgroundImage(Context res, int position) {
         return res.getDrawable(backgrounds[position % backgrounds.length]);
     }
+
+    public static Drawable getBackgroundImageByManufacturer(Context res, int position) {
+        return res.getDrawable(backgrounds[position % backgrounds.length]);
+    }
 }
