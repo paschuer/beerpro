@@ -62,6 +62,8 @@ public class MyBeersRepository {
                 // if the beer is already on the list, don't add it again
             } else {
                 result.add(new MyBeerFromNote(note, beers.get(beerId)));
+                // we also don't want to see a rated beer twice
+                beersAlreadyOnTheList.add(beerId);
             }
         }
 
@@ -71,6 +73,8 @@ public class MyBeersRepository {
                 // if the beer is already on the list, don't add it again
             } else {
                 result.add(new MyBeerFromPrice(price, beers.get(beerId)));
+                // we also don't want to see a rated beer twice
+                beersAlreadyOnTheList.add(beerId);
             }
         }
         Collections.sort(result, (r1, r2) -> r2.getDate().compareTo(r1.getDate()));
